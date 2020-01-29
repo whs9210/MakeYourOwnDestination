@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="placecomment">
+
+	<select id="select" parameterType="placecommentDTO" resultMap="rsMap">
+		SELECT * FROM place_comment WHERE pname = #{pname}
+	</select>
+
+	<resultMap type="placecommentDTO" id="rsMap">
+		<result property="pid" column="pid" />
+		<result property="pname" column="pname" />
+		<result property="id" column="id" />
+		<result property="place_date" column="place_date" />
+		<result property="content" column="content" />
+	</resultMap>
+
+	<select id="selectAll" resultMap="rsMap">
+		SELECT * FROM place_comment where pname = #{pname}
+	</select>
+
+	<insert id="insert" parameterType="placecommentDTO">
+		INSERT INTO place_comment VALUES(placecomment_seq.NextVal,#{pname},#{id},sysdate,#{content})
+	</insert>
+
+	<delete id="delete" parameterType="placecommentDTO">
+		DELETE FROM place_comment WHERE
+		pid = #{pid}
+	</delete>
+</mapper>
